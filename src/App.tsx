@@ -1,5 +1,5 @@
-import { HashRouter, Routes, Route, useLocation, useEffect as _ue } from 'react-router-dom';
 import { useEffect } from 'react';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import { HomePage }          from './pages/HomePage';
@@ -12,7 +12,9 @@ import { TermsPage }         from './pages/TermsPage';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [pathname]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+  }, [pathname]);
   return null;
 }
 
