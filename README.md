@@ -1,20 +1,65 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# دريول — موقع منصة حجز سائق خاص في قطر
 
-# Run and deploy your AI Studio app
+## متطلبات التشغيل
 
-This contains everything you need to run your app locally.
+- Node.js إصدار 18 أو أحدث
+- npm إصدار 9 أو أحدث
 
-View your app in AI Studio: https://ai.studio/apps/5a7021b2-82ca-4dca-869a-aacaedf62069
+## خطوات التنصيب
 
-## Run Locally
+```bash
+# 1. استنسخ المشروع
+ git clone https://github.com/rakanqatar/rakan.git
+ cd rakan
 
-**Prerequisites:**  Node.js
+# 2. ثبّت الاعتماديات
+npm install
 
+# 3. أنشئ ملف البيئة
+cp .env.example .env
+# عدّل المتغيرات المطلوبة (انظر أدناه)
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+# 4. شغّل بيئة التطوير
+npm run dev
+# ستجد الموقع على: http://localhost:3000
+```
+
+## متغيرات البيئة (.env)
+
+```env
+# متغير اختياري: لحساب المسافة تلقائياً في الحاسبة
+VITE_GOOGLE_MAPS_KEY=your_api_key_here
+```
+
+ℹ️ بدون VITE_GOOGLE_MAPS_KEY، تعمل الحاسبة بإدخال يدوي للمسافة.
+
+## بناء للإنتاج
+
+```bash
+npm run build
+# سينشئ مجلد dist/ جاهز للنشر
+```
+
+## النشر
+
+اَنشر مجلد `dist/` على أي استضافة static:
+- **Vercel** (موصى به): أربط الريبو مباشرة، يكتشف Vite تلقائياً
+- **Netlify**: ارفع مجلد dist أو اربط الريبو
+- **Cloudflare Pages**: build command `npm run build`، output `dist`
+
+## تعديل أسعار التسعير
+
+عدّل ملف: `src/config/pricing.ts` — واضح وموثّق.
+
+## قائمة فحص الجودة
+
+- [ ] RTL سليم على جميع المكونات
+- [ ] Responsive — موبايل، تابلت، ديسكتوب
+- [ ] الحاسبة تعطي نتيجة بكلا نوعي حجز
+- [ ] لا روابط معطلة في القائمة
+- [ ] الهيدر يتحول عند التمرير (scroll)
+- [ ] القائمة الجانبية تشتغل على الموبايل
+- [ ] meta tags و Open Graph موجودة
+- [ ] schema LocalBusiness موجود
+- [ ] توحيد المصطلح: "سائق خاص" (لا تاكسي)
+- [ ] توحيد ساعات العمل (مكتب 8-5، تطبيق 24/7)

@@ -1,4 +1,5 @@
 interface Props {
+  id?: string;
   eyebrow?: string;
   title: string;
   subtitle?: string;
@@ -6,7 +7,7 @@ interface Props {
   light?: boolean;
 }
 
-export function SectionTitle({ eyebrow, title, subtitle, center = false, light = false }: Props) {
+export function SectionTitle({ id, eyebrow, title, subtitle, center = false, light = false }: Props) {
   return (
     <div className={center ? 'text-center' : ''}>
       {eyebrow && (
@@ -18,9 +19,12 @@ export function SectionTitle({ eyebrow, title, subtitle, center = false, light =
           {eyebrow}
         </span>
       )}
-      <h2 className={`text-3xl md:text-4xl font-black leading-tight mb-4 ${
-        light ? 'text-white' : 'text-[#1C1C1C]'
-      }`}>
+      <h2
+        id={id}
+        className={`text-3xl md:text-4xl font-black leading-tight mb-4 ${
+          light ? 'text-white' : 'text-[#1C1C1C]'
+        }`}
+      >
         {title}
       </h2>
       {subtitle && (
