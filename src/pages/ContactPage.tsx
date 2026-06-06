@@ -1,22 +1,30 @@
 import { useState, type FormEvent } from 'react';
 import { SectionTitle } from '../components/ui/SectionTitle';
 import { Button } from '../components/ui/Button';
-import { Phone, Mail, Clock, MapPin } from 'lucide-react';
+import { Phone, Mail, Clock, MapPin, type LucideIcon } from 'lucide-react';
 
-const contactInfo = [
+interface ContactLine {
+  text: string;
+  href?: string;
+}
+interface ContactCard {
+  Icon: LucideIcon;
+  title: string;
+  lines: ContactLine[];
+}
+
+const contactInfo: ContactCard[] = [
   {
     Icon: Phone,
     title: 'الهاتف',
-    lines: [
-      { text: '+974 44 000 000', href: 'tel:+97444000000' },
-    ],
+    lines: [{ text: '+974 44 000 000', href: 'tel:+97444000000' }],
   },
   {
     Icon: Mail,
     title: 'البريد الإلكتروني',
     lines: [
       { text: 'support@drieul.com', href: 'mailto:support@drieul.com' },
-      { text: 'drivers@drieul.com', href: 'mailto:drivers@drieul.com' },
+      { text: 'drivers@drieul.com',  href: 'mailto:drivers@drieul.com' },
     ],
   },
   {
@@ -24,32 +32,28 @@ const contactInfo = [
     title: 'ساعات العمل',
     lines: [
       { text: 'مكتب الدعم: السبت – الخميس، 8 ص – 5 م' },
-      { text: 'التطبيق: متاح 24 ساعة / 7 أيام' },
+      { text: 'التطبيق: متاح 24/7' },
     ],
   },
   {
     Icon: MapPin,
     title: 'الموقع',
-    lines: [
-      { text: 'الدوحة، قطر' },
-    ],
+    lines: [{ text: 'الدوحة، قطر' }],
   },
 ];
 
 export function ContactPage() {
-  const [sent, setSent] = useState(false);
+  const [sent, setSent]       = useState(false);
   const [loading, setLoading] = useState(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
-    // Placeholder: replace with real form submission
     setTimeout(() => { setLoading(false); setSent(true); }, 1200);
   }
 
   return (
     <div>
-      {/* Hero */}
       <section className="bg-[#8A1538] sadu-bg py-24 px-6 text-center">
         <div className="max-w-[600px] mx-auto">
           <h1 className="text-4xl md:text-5xl font-black text-white mb-4">اتصل بنا</h1>
@@ -59,8 +63,6 @@ export function ContactPage() {
 
       <section className="py-24 px-6">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14">
-
-          {/* Contact info */}
           <div>
             <SectionTitle eyebrow="معلومات التواصل" title="نحن هنا من أجلك" />
             <div className="mt-10 space-y-5">
@@ -71,18 +73,17 @@ export function ContactPage() {
                   </div>
                   <div>
                     <p className="font-black text-[#1C1C1C] mb-1.5">{title}</p>
-                    {lines.map((line, j) => (
+                    {lines.map((line, j) =>
                       line.href
                         ? <a key={j} href={line.href} className="block text-sm text-[#5A5A5A] hover:text-[#8A1538] transition-colors">{line.text}</a>
                         : <p key={j} className="text-sm text-[#5A5A5A]">{line.text}</p>
-                    ))}
+                    )}
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Contact form */}
           <div>
             <SectionTitle eyebrow="راسلنا" title="أرسل رسالتك" />
             {sent ? (
@@ -97,16 +98,19 @@ export function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label htmlFor="name" className="block text-sm font-bold text-[#1C1C1C] mb-2">الاسم</label>
-                    <input id="name" required type="text" placeholder="اسمك الكريم" className="w-full border border-[rgba(28,28,28,0.15)] rounded-[12px] px-4 py-3 text-sm focus:outline-none focus:border-[#8A1538] transition-colors" />
+                    <input id="name" required type="text" placeholder="اسمك الكريم"
+                      className="w-full border border-[rgba(28,28,28,0.15)] rounded-[12px] px-4 py-3 text-sm focus:outline-none focus:border-[#8A1538] transition-colors" />
                   </div>
                   <div>
                     <label htmlFor="phone" className="block text-sm font-bold text-[#1C1C1C] mb-2">رقم الجوال</label>
-                    <input id="phone" type="tel" placeholder="+974 XXXX XXXX" className="w-full border border-[rgba(28,28,28,0.15)] rounded-[12px] px-4 py-3 text-sm focus:outline-none focus:border-[#8A1538] transition-colors" />
+                    <input id="phone" type="tel" placeholder="+974 XXXX XXXX"
+                      className="w-full border border-[rgba(28,28,28,0.15)] rounded-[12px] px-4 py-3 text-sm focus:outline-none focus:border-[#8A1538] transition-colors" />
                   </div>
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-bold text-[#1C1C1C] mb-2">البريد الإلكتروني</label>
-                  <input id="email" required type="email" placeholder="example@email.com" className="w-full border border-[rgba(28,28,28,0.15)] rounded-[12px] px-4 py-3 text-sm focus:outline-none focus:border-[#8A1538] transition-colors" />
+                  <input id="email" required type="email" placeholder="example@email.com"
+                    className="w-full border border-[rgba(28,28,28,0.15)] rounded-[12px] px-4 py-3 text-sm focus:outline-none focus:border-[#8A1538] transition-colors" />
                 </div>
                 <div>
                   <label htmlFor="subject" className="block text-sm font-bold text-[#1C1C1C] mb-2">الموضوع</label>
@@ -121,7 +125,8 @@ export function ContactPage() {
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-bold text-[#1C1C1C] mb-2">الرسالة</label>
-                  <textarea id="message" required rows={5} placeholder="اكتب رسالتك هنا..." className="w-full border border-[rgba(28,28,28,0.15)] rounded-[12px] px-4 py-3 text-sm focus:outline-none focus:border-[#8A1538] transition-colors resize-none" />
+                  <textarea id="message" required rows={5} placeholder="اكتب رسالتك هنا..."
+                    className="w-full border border-[rgba(28,28,28,0.15)] rounded-[12px] px-4 py-3 text-sm focus:outline-none focus:border-[#8A1538] transition-colors resize-none" />
                 </div>
                 <Button type="submit" size="lg" className="w-full" disabled={loading}>
                   {loading ? 'جاري الإرسال...' : 'أرسل الرسالة'}
